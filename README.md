@@ -1,69 +1,25 @@
-# solmate
+#### DISCLAIMER: This is experimental code, aka joke or trolling code.  It is not meant to be used for production or taken seriously at all.
 
-**Modern**, **opinionated**, and **gas optimized** building blocks for **smart contract development**.
+### [@devtooligan](https://twitter.com/devtooligan) supports creative experimentation on the blockchain as a path towards innovation.
 
-## Contracts
+# E-VENT-RC20.SOL
 
-```ml
-auth
-├─ Owned — "Simple single owner authorization"
-├─ Auth — "Flexible and updatable auth pattern"
-├─ authorities
-│  ├─ RolesAuthority — "Role based Authority that supports up to 256 roles"
-│  ├─ MultiRolesAuthority — "Flexible and target agnostic role based Authority"
-mixins
-├─ ERC4626 — "Minimal ERC4626 tokenized Vault implementation"
-tokens
-├─ WETH — "Minimalist and modern Wrapped Ether implementation"
-├─ ERC20 — "Modern and gas efficient ERC20 + EIP-2612 implementation"
-├─ ERC721 — "Modern, minimalist, and gas efficient ERC721 implementation"
-├─ ERC1155 — "Minimalist and gas efficient standard ERC1155 implementation"
-utils
-├─ SSTORE2 — "Library for cheaper reads and writes to persistent storage"
-├─ CREATE3 — "Deploy to deterministic addresses without an initcode factor"
-├─ LibString — "Library for creating string representations of uint values"
-├─ SafeCastLib — "Safe unsigned integer casting lib that reverts on overflow"
-├─ SignedWadMath — "Signed integer 18 decimal fixed point arithmetic library"
-├─ MerkleProofLib — "Efficient merkle tree inclusion proof verification library"
-├─ ReentrancyGuard — "Gas optimized reentrancy protection for smart contracts"
-├─ FixedPointMathLib — "Arithmetic library with operations for fixed-point numbers"
-├─ Bytes32AddressLib — "Library for converting between addresses and bytes32 values"
-├─ SafeTransferLib — "Safe ERC20/ETH transfer lib that handles missing return values"
-```
+A hyper-cursed ERC20 implementation where all of the logic lives inside the arguments of function calls to `emit()`.
 
-## Safety
+Authored by [@danielvf](https://github.com/DanielVF), a Baphomet witch and master of curses.  His original incantation [here](https://gist.github.com/DanielVF/ab8e083539da1e162a442dbe9cef5b16).
 
-This is **experimental software** and is provided on an "as is" and "as available" basis.
+ 
+### tldr;
+This pattern was used in [ArtGobblers](https://github.com/artgobblers/art-gobblers) for "[brevity](https://twitter.com/transmissions11/status/1622798627629572096?s=20&t=9qpMggKbBrpf8kXyjQcGQQ)". Note: This is not intended as a gas optimization!
 
-While each [major release has been audited](audits), these contracts are **not designed with user safety** in mind:
+[Horsefacts](https://twitter.com/eth_call) and I started joking about it and taking it to the extreme.  Months later it resurfaced with a [tweet](https://twitter.com/z0r0zzz/status/1622170338112188416) from [Ross](https://twitter.com/z0r0zzz) and I decided to put a [0.1 eth bounty](https://twitter.com/devtooligan/status/1622768367596888064) out for an ERC20 implmentation with all logic in `emit()` that passes Solmate tests.
 
-- There are implicit invariants these contracts expect to hold.
-- **You can easily shoot yourself in the foot if you're not careful.**
-- You should thoroughly read each contract you plan to use top to bottom.
 
-We **do not give any warranties** and **will not be liable for any loss** incurred through any use of this codebase.
+In case you're confused (and you should be), heres some Twitter threads:
 
-## Installation
-
-To install with [**Foundry**](https://github.com/gakonst/foundry):
-
-```sh
-forge install transmissions11/solmate
-```
-
-To install with [**Hardhat**](https://github.com/nomiclabs/hardhat) or [**Truffle**](https://github.com/trufflesuite/truffle):
-
-```sh
-npm install solmate
-```
-
-## Acknowledgements
-
-These contracts were inspired by or directly modified from many sources, primarily:
-
-- [Gnosis](https://github.com/gnosis/gp-v2-contracts)
-- [Uniswap](https://github.com/Uniswap/uniswap-lib)
-- [Dappsys](https://github.com/dapphub/dappsys)
-- [Dappsys V2](https://github.com/dapp-org/dappsys-v2)
-- [0xSequence](https://github.com/0xSequence)
-- [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts)
+ - https://twitter.com/eth_call/status/1573734826422816768
+ - https://twitter.com/devtooligan/status/1573818445447106560
+ - https://twitter.com/clemlak/status/1622971215034957824
+ - https://twitter.com/danielvf/status/1622943096773218304
+ - https://twitter.com/devtooligan/status/1622768367596888064
+ - https://twitter.com/z0r0zzz/status/1622170338112188416
