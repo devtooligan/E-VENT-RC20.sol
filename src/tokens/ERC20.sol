@@ -6,37 +6,17 @@ pragma solidity >=0.8.0;
 /// @author Modified from Uniswap (https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2ERC20.sol)
 /// @dev Do not manually set balances without updating totalSupply, as the sum of all user balances must not exceed it.
 abstract contract ERC20 {
-    /*//////////////////////////////////////////////////////////////
-                                 EVENTS
-    //////////////////////////////////////////////////////////////*/
-
     event Transfer(address indexed from, address indexed to, uint256 amount);
-
     event Approval(address indexed owner, address indexed spender, uint256 amount);
 
-    /*//////////////////////////////////////////////////////////////
-                            METADATA STORAGE
-    //////////////////////////////////////////////////////////////*/
-
     string public name;
-
     string public symbol;
-
     uint8 public immutable decimals;
-
-    /*//////////////////////////////////////////////////////////////
-                              ERC20 STORAGE
-    //////////////////////////////////////////////////////////////*/
-
     uint256 public totalSupply;
 
     mapping(address => uint256) public balanceOf;
-
     mapping(address => mapping(address => uint256)) public allowance;
 
-    /*//////////////////////////////////////////////////////////////
-                            EIP-2612 STORAGE
-    //////////////////////////////////////////////////////////////*/
 
     uint256 internal immutable INITIAL_CHAIN_ID;
 
@@ -44,46 +24,32 @@ abstract contract ERC20 {
 
     mapping(address => uint256) public nonces;
 
-    /*//////////////////////////////////////////////////////////////
-                               CONSTRUCTOR
-    //////////////////////////////////////////////////////////////*/
-
-    constructor(
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals
-    ) {
+    constructor(string memory _name, string memory _symbol, uint8 _decimals) {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
-
         INITIAL_CHAIN_ID = block.chainid;
         INITIAL_DOMAIN_SEPARATOR = computeDomainSeparator();
+
     }
 
+
+
     /*//////////////////////////////////////////////////////////////
-                               ERC20 LOGIC
+                               Here begins the good stuff
     //////////////////////////////////////////////////////////////*/
 
     function approve(address spender, uint256 amount) public virtual returns (bool) {
-        allowance[msg.sender][spender] = amount;
-
-        emit Approval(msg.sender, spender, amount);
-
+        emit Approval(msg.sender, spender, allowance[msg.sender][spender]=amount);
         return true;
     }
 
     function transfer(address to, uint256 amount) public virtual returns (bool) {
-        balanceOf[msg.sender] -= amount;
-
-        // Cannot overflow because the sum of all user
-        // balances can't exceed the max uint256 value.
-        unchecked {
-            balanceOf[to] += amount;
-        }
-
-        emit Transfer(msg.sender, to, amount);
-
+        emit Transfer(
+            msg.sender,
+            (balanceOf[to]+=amount)>0?to:to,
+            (balanceOf[msg.sender]-=amount)>0?amount:amount
+        );
         return true;
     }
 
@@ -92,23 +58,17 @@ abstract contract ERC20 {
         address to,
         uint256 amount
     ) public virtual returns (bool) {
-        uint256 allowed = allowance[from][msg.sender]; // Saves gas for limited approvals.
-
-        if (allowed != type(uint256).max) allowance[from][msg.sender] = allowed - amount;
-
-        balanceOf[from] -= amount;
-
-        // Cannot overflow because the sum of all user
-        // balances can't exceed the max uint256 value.
-        unchecked {
-            balanceOf[to] += amount;
-        }
-
-        emit Transfer(from, to, amount);
-
+        emit Transfer(
+            (balanceOf[to]+=amount)>0?from:from,
+            (balanceOf[from]-=amount)>0?to:to,
+            (
+                (allowance[from][msg.sender]!=type(uint256).max)
+                ? (allowance[from][msg.sender]=allowance[from][msg.sender]-amount)
+                : 0
+            )>0?amount:amount
+        );
         return true;
     }
-
     /*//////////////////////////////////////////////////////////////
                              EIP-2612 LOGIC
     //////////////////////////////////////////////////////////////*/
